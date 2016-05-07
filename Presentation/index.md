@@ -1,0 +1,70 @@
+---
+title       : Introduce of my shiny application
+subtitle    : Testing of two clustering algorithm with iris data
+author      : Krabby
+job         : Student
+framework   : io2012        # {io2012, html5slides, shower, dzslides, ...}
+highlighter : highlight.js  # {highlight.js, prettify, highlight}
+hitheme     : tomorrow      # 
+widgets     : []            # {mathjax, quiz, bootstrap}
+mode        : selfcontained # {standalone, draft}
+knit        : slidify::knit2slides
+---
+
+## Introduction
+This app use iris dataset in R to test two clustering algorithm: K-means and Hierarchical Clustering.
+The method of use this app is as follow:
+
+1. Define the number of clusters
+2. Choose a clustering algorithm(either K-means or Hierarchical Clustering)
+3. Press the "Run!" button
+4. A plot will show result of the algorithm in the mainPanel
+
+--- .class #id 
+
+## Initial screen
+A plot of the raw data is show in the mainPanel
+
+```r
+library(ggplot2)
+library(fpc)
+data(iris)
+ggplot(data = iris, aes(x = Sepal.Length, y = Sepal.Width)) + 
+        geom_point(aes(colour = Species),size=2.5)+
+        theme(text = element_text(size = 15))
+```
+
+![plot of chunk unnamed-chunk-1](assets/fig/unnamed-chunk-1-1.png)
+
+--- .class #id 
+
+## clustering algorithm 1: Kmeans
+Take the cluster number equals to 3 for example, the the results of the algorithm are as follows:
+
+```r
+k <- 3
+km <- kmeans(iris[,1:2],k)
+cluster <- factor(km$cluster)
+ggplot(data = iris, aes(x = Sepal.Length, y = Sepal.Width)) + 
+        geom_point(aes(colour = Species,shape=cluster),size=2.5)+
+        theme(text = element_text(size = 15))
+```
+
+![plot of chunk unnamed-chunk-2](assets/fig/unnamed-chunk-2-1.png)
+
+--- .class #id 
+
+## clustering algorithm 2: Hierarchical Clustering
+Take the cluster number equals to 3 for example, the the results of the algorithm are as follows:
+
+```r
+k <- 3
+hc <- hclust(dist(iris[,1:2]))
+hc_cut <- cutree(hc, k)
+cluster <- factor(hc_cut)
+ggplot(data = iris, aes(x = Sepal.Length, y = Sepal.Width)) + 
+        geom_point(aes(colour = Species,shape=cluster),size=2.5)+
+        theme(text = element_text(size = 15))
+```
+
+![plot of chunk unnamed-chunk-3](assets/fig/unnamed-chunk-3-1.png)

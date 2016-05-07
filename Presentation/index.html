@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Introduce of my shiny application</title>
+  <meta charset="utf-8">
+  <meta name="description" content="Introduce of my shiny application">
+  <meta name="author" content="Krabby">
+  <meta name="generator" content="slidify" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/default.css" media="all" >
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/phone.css" 
+    media="only screen and (max-device-width: 480px)" >
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/slidify.css" >
+  <link rel="stylesheet" href="libraries/highlighters/highlight.js/css/tomorrow.css" />
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->  <link rel=stylesheet href="./assets/css/ribbons.css"></link>
+
+  
+  <!-- Grab CDN jQuery, fall back to local if offline -->
+  <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
+  <script>window.jQuery || document.write('<script src="libraries/widgets/quiz/js/jquery.js"><\/script>')</script> 
+  <script data-main="libraries/frameworks/io2012/js/slides" 
+    src="libraries/frameworks/io2012/js/require-1.0.8.min.js">
+  </script>
+  
+  
+
+</head>
+<body style="opacity: 0">
+  <slides class="layout-widescreen">
+    
+    <!-- LOGO SLIDE -->
+        <slide class="title-slide segue nobackground">
+  <hgroup class="auto-fadein">
+    <h1>Introduce of my shiny application</h1>
+    <h2>Testing of two clustering algorithm with iris data</h2>
+    <p>Krabby<br/>Student</p>
+  </hgroup>
+  <article></article>  
+</slide>
+    
+
+    <!-- SLIDES -->
+    <slide class="" id="slide-1" style="background:;">
+  <hgroup>
+    <h2>Introduction</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>This app use iris dataset in R to test two clustering algorithm: K-means and Hierarchical Clustering.
+The method of use this app is as follow:</p>
+
+<ol>
+<li>Define the number of clusters</li>
+<li>Choose a clustering algorithm(either K-means or Hierarchical Clustering)</li>
+<li>Press the &quot;Run!&quot; button</li>
+<li>A plot will show result of the algorithm in the mainPanel</li>
+</ol>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h2>Initial screen</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>A plot of the raw data is show in the mainPanel</p>
+
+<pre><code class="r">library(ggplot2)
+library(fpc)
+data(iris)
+ggplot(data = iris, aes(x = Sepal.Length, y = Sepal.Width)) + 
+        geom_point(aes(colour = Species),size=2.5)+
+        theme(text = element_text(size = 15))
+</code></pre>
+
+<p><img src="assets/fig/unnamed-chunk-1-1.png" alt="plot of chunk unnamed-chunk-1"></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h2>clustering algorithm 1: Kmeans</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>Take the cluster number equals to 3 for example, the the results of the algorithm are as follows:</p>
+
+<pre><code class="r">k &lt;- 3
+km &lt;- kmeans(iris[,1:2],k)
+cluster &lt;- factor(km$cluster)
+ggplot(data = iris, aes(x = Sepal.Length, y = Sepal.Width)) + 
+        geom_point(aes(colour = Species,shape=cluster),size=2.5)+
+        theme(text = element_text(size = 15))
+</code></pre>
+
+<p><img src="assets/fig/unnamed-chunk-2-1.png" alt="plot of chunk unnamed-chunk-2"></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h2>clustering algorithm 2: Hierarchical Clustering</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>Take the cluster number equals to 3 for example, the the results of the algorithm are as follows:</p>
+
+<pre><code class="r">k &lt;- 3
+hc &lt;- hclust(dist(iris[,1:2]))
+hc_cut &lt;- cutree(hc, k)
+cluster &lt;- factor(hc_cut)
+ggplot(data = iris, aes(x = Sepal.Length, y = Sepal.Width)) + 
+        geom_point(aes(colour = Species,shape=cluster),size=2.5)+
+        theme(text = element_text(size = 15))
+</code></pre>
+
+<p><img src="assets/fig/unnamed-chunk-3-1.png" alt="plot of chunk unnamed-chunk-3"></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+    <slide class="backdrop"></slide>
+  </slides>
+  <div class="pagination pagination-small" id='io2012-ptoc' style="display:none;">
+    <ul>
+      <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=1 title='Introduction'>
+         1
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=2 title='Initial screen'>
+         2
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=3 title='clustering algorithm 1: Kmeans'>
+         3
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=4 title='clustering algorithm 2: Hierarchical Clustering'>
+         4
+      </a>
+    </li>
+  </ul>
+  </div>  <!--[if IE]>
+    <script 
+      src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js">  
+    </script>
+    <script>CFInstall.check({mode: 'overlay'});</script>
+  <![endif]-->
+</body>
+  <!-- Load Javascripts for Widgets -->
+  
+  <!-- LOAD HIGHLIGHTER JS FILES -->
+  <script src="libraries/highlighters/highlight.js/highlight.pack.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <!-- DONE LOADING HIGHLIGHTER JS FILES -->
+   
+  </html>
